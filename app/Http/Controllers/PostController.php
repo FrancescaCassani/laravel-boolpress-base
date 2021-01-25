@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -37,7 +39,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Get data from form
+        $data = $request->all();
+
+        //Validazione: il this serve per richiamare la funzioni al di fuori dell'istanza
+        $request->validate($this->ruleValidation());
+
+        //Aggiungo una nuova chiave associativa: slug
+        $data['slug'] = Str::slug($data['title'], '-');
+
+        //Controllo per salvare l'immagine nel DB se viene caricata
+        if (!empty($data['path_img'])) {
+            $data['path_img'] = Storage::disk('public')->put('images', $data['path_img']);
+        }
+
+        //Salvataggio nel mio DB
+        $newPost = new Post();
+        $newPost->fill($data); //$fillable nel model
+
+        $saved = $newPost->save();
+
+        //Controllo sul salvataggio e sulle rotte di destinazione
+        if ($saved) {
+            return redirect()->route('posts.index');
+        } else {
+            return redirect()->route('homepage');
+        }
     }
 
     /**
@@ -83,5 +110,15 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    //Regole per la validazione
+    private function ruleValidation() {
+        return [
+            'title' => 'required',
+            'body' => 'required',
+            'path_img' => 'image'
+        ];
     }
 }

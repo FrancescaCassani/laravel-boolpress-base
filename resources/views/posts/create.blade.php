@@ -29,11 +29,6 @@
             </div>
 
             <div class="form-group">
-                <label for="symbol">Symbol</label>
-                <input class="form-control" type="text" name="title" id="title" value="{{old('symbol')}}">
-            </div>
-
-            <div class="form-group">
                 <label for="body">History</label>
                 <textarea class="form-control" type="text" name="body" id="body">{{old('body')}}</textarea>
             </div>
