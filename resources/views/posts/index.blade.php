@@ -12,7 +12,7 @@
                 <a href="{{route('posts.show', $post->slug)}}">Read more</a>
             </article>
         @empty
-
+            <p>No story here. You can write a new one by <a href="{{route('posts.create')}}">clicking here</a></p>
 
         @endforelse
     </div>

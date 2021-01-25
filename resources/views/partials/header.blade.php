@@ -9,14 +9,21 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
+                {{-- Rotta Home --}}
               <a class="nav-link" href="{{route('homepage')}}">Home</a>
             </li>
+            {{-- Rotta About --}}
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('about')}}">About</a>
-              </li>
-              <li class="nav-item active">
+            </li>
+            {{-- Rotta Index dei post --}}
+            <li class="nav-item active">
                 <a class="nav-link" href="{{route('posts.index')}}">Blog</a>
-              </li>
+            </li>
+            {{-- Rotta Create post --}}
+            <li class="nav-item active">
+                <a class="nav-link" href="{{route('posts.create')}}">New Post</a>
+            </li>
           </ul>
         </div>
       </nav>
