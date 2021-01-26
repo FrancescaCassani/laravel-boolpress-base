@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         //Ordino dal più recente al meno recente
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(4);  //Elimino get() in quanto lo comprende -> poi vai in index.blade.php per sistemare lo slider delle pagine
         return view('posts.index', compact('posts'));
     }
 
@@ -90,6 +90,12 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where('slug', $slug)->first();
+
+        //Imposto il controllo su eventuali errori di ricerca da parte dell'utente e gestisco lo stile in 404.blade.php
+        if (empty($post)) {
+            abort(404);
+        }
+
         return view('posts.edit', compact('post'));
     }
 
@@ -140,9 +146,23 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        //$post = Post::find($id) compatto la versione con variabile e istanza
+
+        $title = $post->title;
+        $img = $post->path_img;
+        $deleted = $post->delete();
+
+        //Controllo sulla cancellazione e imposto la section che dovrò stilare nel file index.blade.php nel file show.bòade.php imposto la form con la cancellazione del post
+        if ($deleted) {
+            if (!empty($post->path_img)) {
+                Storage::disk('public')->delete($img);
+            }
+            return redirect()->route('posts.index')->with('post-deleted', $title);
+        } else {
+            return redirect()->route('homepage');
+        }
     }
 
 

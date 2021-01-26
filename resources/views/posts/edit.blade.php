@@ -41,7 +41,7 @@
                     <div class="wrap-image">
                     <img width="200" src="{{asset('storage/' . $post->path_img)}}" alt="{{$post->title}}">
                     </div>
-                    <h6>Change image here:</h6>
+                    <h6>Change:</h6>
                 @endisset
                 <input class="form-control"  type="file" name="path_img" id="path_img" accept="image/*">
             </div>

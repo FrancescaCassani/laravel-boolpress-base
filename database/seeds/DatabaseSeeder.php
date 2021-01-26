@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        //L'ordine in cui li aggiungo è l'ordine di aggiunta qui dentro
+        $this->call([
+            PostsTableSeeder::class,
+        ]);
     }
 }
