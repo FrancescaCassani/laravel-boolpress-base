@@ -14,10 +14,22 @@
                     </div>
                 @endif
 
-                <h2>{{$post->title}}</h2>
-                <h5>{{$post->created_at->format('d/m/Y')}}</h5>
-                <p>{{$post->body}}</p>
-                <a href="{{route('posts.show', $post->slug)}}">Read more</a>
+                <div class="mb-2">
+                    <h2>{{$post->title}}</h2>
+                    <h5>{{$post->created_at->format('d/m/Y')}}</h5>
+                    <p>{{$post->body}}</p>
+                    <a href="{{route('posts.show', $post->slug)}}">Read more</a>
+                </div>
+
+                {{-- TAGS --}}
+                <section class="tags">
+                    <h5>Tags</h5>
+                    @forelse ($post->tags as $tag)
+                        <span class="badge badge-primary">{{$tag->name}}</span>
+                    @empty
+                        <p>No tags selected.</p>
+                    @endforelse
+                </section>
             </article>
         @empty
             <p>No story here. You can write a new one by <a href="{{route('posts.create')}}">clicking here</a></p>

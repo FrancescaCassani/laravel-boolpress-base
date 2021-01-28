@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
         //L'ordine in cui li aggiungo è l'ordine di aggiunta qui dentro
         $this->call([
             PostsTableSeeder::class,
+            InfoPostsTableSeeder::class,
+            CommentsTableSeeder::class,
+            TagsTableSeeder::class,
         ]);
     }
 }

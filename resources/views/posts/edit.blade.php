@@ -46,6 +46,54 @@
                 <input class="form-control"  type="file" name="path_img" id="path_img" accept="image/*">
             </div>
 
+
+             {{-- RELAZIONE FRA MODELLI: ACCEDO ALLA PROPRIETA' DI INFOPOST--}}
+            <div class="form-group">
+                <label for="post_status">Post Status</label>
+                <select name="post_status" id="post_status">
+                    <option value="public"
+                    {{-- Prendo il valore di default salvato nel DB: accedo alla proprietà di infoPost --}}
+                    {{old('post_status' , $post->infoPost->post_status) == 'public' ? 'selected' : ''}}
+                    >Public</option>
+                    <option value="private"
+                    {{old('post_status' , $post->infoPost->post_status) == 'private' ? 'selected' : ''}}
+                    >Private</option>
+                    <option value="draft"
+                    {{old('post_status' , $post->infoPost->post_status) == 'draft' ? 'selected' : ''}}
+                    >Draft</option>
+                </select>
+            </div>
+
+            {{-- RELAZIONE FRA MODELLI: ACCEDO ALLA PROPRIETA' DI INFOPOST --}}
+            <div class="form-group">
+                <label for="comment_status">Comment Status</label>
+                <select name="comment_status" id="comment_status">
+                    <option value="open"
+                    {{old('comment_status' , $post->infoPost->comment_status) == 'open' ? 'selected' : ''}}
+                    >Open</option>
+                    <option value="closed"
+                    {{old('comment_status' , $post->infoPost->comment_status) == 'closed' ? 'selected' : ''}}
+                    >Closed</option>
+                    <option value="private"
+                    {{old('comment_status' , $post->infoPost->comment_status) == 'private' ? 'selected' : ''}}
+                    >Private</option>
+                </select>
+            </div>
+
+
+             {{-- TAGS --}}
+             <div class="form-group">
+                @foreach ($tags as $tag)
+                    <div class="form-check">
+                        <input class="from-check-input" type="checkbox" name="tags[]" id="tag-{{$tag->id}}" value="{{$tag->id}}"
+                        {{-- Cerca corrispondenza con l id precedentemente inserito --}}
+                        @if ($post->tags->contains($tag->id)) checked @endif
+                        >
+                        <label for="tag-{{$tag->id}}"> {{$tag->name}} </label>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="form-group">
                 <input class="btn btn-dark" type="submit" value="Update post">
             </div>
