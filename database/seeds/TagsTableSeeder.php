@@ -13,10 +13,9 @@ class TagsTableSeeder extends Seeder
     public function run()
     {
         $tags = [
-            'Educational',
-            'Laravel',
-            'PHP',
-            'HTML'
+            'Marvel',
+            'DC Comics',
+            'Disney'
         ];
 
         foreach ($tags as $tag) {

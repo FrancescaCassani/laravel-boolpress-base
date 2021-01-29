@@ -10,7 +10,7 @@
     <body>
         @include('partials.header')
 
-        <main class="vh-100">
+        <main class="min-vh-100">
             @yield('content')
         </main>
 

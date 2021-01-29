@@ -17,8 +17,14 @@
                 <div class="mb-2">
                     <h2>{{$post->title}}</h2>
                     <h5>{{$post->created_at->format('d/m/Y')}}</h5>
-                    <p>{{$post->body}}</p>
-                    <a href="{{route('posts.show', $post->slug)}}">Read more</a>
+                    @if (!empty($post->path_img))
+                        <img width="300" src="{{asset('storage/' . $post->path_img)}}" alt="{{$post->title}}">
+                    @else
+                        <img src="{{asset('img/no-img.png')}}" alt="{{$post->title}}">
+                    @endif
+                    <div>
+                        <a href="{{route('posts.show', $post->slug)}}">Scopri di più</a>
+                    </div>
                 </div>
 
                 {{-- TAGS --}}
